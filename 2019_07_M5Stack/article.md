@@ -84,9 +84,11 @@ Les modèles M5Stack et M5Stick possèdent au moins un port d’extension compat
 
 ## 3.1 Installation de UIFlow via M5Burner
 
-A partir du site de téléchargement https://m5stack.com/pages/download téléchargeons le M5Burner. Attention sur certain OS il faut installer un driver USB avant de pouvoir lancer le M5Burner. (CP2104 Driver sur la page de téléchargement) Une fois lancé le Burner nous permet de sélectionner le programme à installer. Sélectionnons la dernière version 1.4.5.1 de UIFlow qui est compatible M5Stack et M5StickC. Les versions plus récentes supportent uniquement le M5Stack. Une fois téléchargé nous pouvons envoyer notre programme à notre M5Stack en cliquant sur Burn, n’oubliez pas auparavant de spécifier vos information Wifi. (voir capture d’écran)
+A partir du site de téléchargement https://m5stack.com/pages/download téléchargeons le M5Burner. Attention sur certain OS il faut installer un driver USB avant de pouvoir lancer le M5Burner. (CP2104 Driver sur la page de téléchargement) Une fois lancé le Burner nous permet de sélectionner le programme à installer. Téléchargeons la dernière version de UIFlow pour notre M5Stack et pour notre M5StickC. Une fois téléchargé nous pouvons envoyer notre programme à notre M5Stack ou notre M5StickC en cliquant sur Burn, n’oubliez pas auparavant de spécifier vos information Wifi ainsi que le port de communication COM (ici `/dev/ttyUSB0`). (voir capture d’écran)
 
-![](images/M5Burner.png)                  
+![](images/M5Burner_0.png)
+![](images/M5Burner_1.png)
+![](images/M5Burner_2.png)
 
 
 Une fois installé le programme se lance automatiquement, on nous propose un rapide mode d’emploi ainsi que la découverte des fonctionnalités du M5Stack (haut parleur, microphone, gyroscope, RGB bar…)
@@ -95,11 +97,9 @@ Une fois installé le programme se lance automatiquement, on nous propose un rap
 
 ![](images/UIFlow.png)
 
-L’étape suivante consiste à connecter l’interface de développement UIFlow à notre M5Stack. Il y a deux possibilités pour accéder à UIFlow : en ligne grâce à L’URL https://flow.m5stack.com/ ou bien grâce à l’IDE disponible sur le site de téléchargement. L’outil nous demande « l’Api key » pour pouvoir déployer notre application  sur notre M5Stack. Pour obtenir cette information il faut redémarrer le M5Stack en appuyant sur le bouton rouge puis rapidement appuyer sur le premier bouton « upload ».
+L’étape suivante consiste à connecter l’interface de développement UIFlow à notre M5Stack. Il y a deux possibilités pour accéder à UIFlow : en ligne grâce à L’URL https://flow.m5stack.com/ ou bien grâce à l’IDE disponible sur le site de téléchargement. L’outil nous demande le type de périphérique dans notre cas M5Stack ou M5StickC, nous devons aussi saisir « l’Api key » pour pouvoir déployer notre application  sur notre périphérique.
 
-L’étape suivante consiste à connecter l’interface de développement UIFlow à notre M5Stack. Il y a deux possibilités pour accéder à UIFlow : en ligne grâce à L’URL https://flow.m5stack.com/ ou bien grâce à l’IDE disponible sur le site de téléchargement. L’outil nous demande « l’Api key » pour pouvoir déployer notre application  sur notre M5Stack. 
-
-Si vous avez tester les application pré-installé pour retourner sur le menu affichant « l’API key » il  faut redémarrer le M5Stack en appuyant sur le bouton rouge puis rapidement appuyer sur le bouton du milieur (celui situé sous les deux points).
+> Si vous avez tester les application pré-installé pour retourner sur le menu affichant « l’API key » il  faut redémarrer le M5Stack en appuyant sur le bouton rouge puis rapidement appuyer sur le bouton du milieur (celui situé sous les deux points).
 
 Pour le moment UIFlow ne permet pas de développer en Français, nous allons donc utiliser l’interface en anglais.
 
