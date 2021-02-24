@@ -105,80 +105,22 @@ Pour le moment UIFlow ne permet pas de développer en Français, nous allons don
 
 ## 3.3 Programmation « Communication en MQTT »
 
-Je vous propose 2 programmes appelés Flows. Un pour le M5Stack et un pour le M5StickC. Le but principal de ces Flows est de communiquer en asynchrone avec un gestionnaire de message via le protocole MQTT (Message Queuing Telemetry Transport). Ce protocole, fréquemment utilisé dans l’IoT, permet la diffusion d’information, on parle de communication en mode éditeur/abonné. (En anglais : publish/subscribe ou encore Pub/Sub). Nous pouvons utiliser l’implémentation du groupe Apache nommée MosQuiTTo. Apache met à notre disposition un serveur à l’adresse suivante : mqtt.eclipse.org:1883. Sur notre schéma le M5StickC c’est abonné au message. Le M5Stack envoie un message qui est diffusé par le serveur MQTT aux abonnés, en l’occurrence notre M5StickC. Il s’agit d’un schéma simplifié. Comme vous ne disposez peut-être pas de plusieurs M5Stack, l’émetteur du message est aussi un abonné. Il recevra donc son propre message.
+Je vous propose 2 programmes appelés Flows. Un pour le M5Stack et un pour le M5StickC. Le but principal de ces Flows est de communiquer en asynchrone avec un gestionnaire de message via le protocole MQTT (Message Queuing Telemetry Transport). Ce protocole, fréquemment utilisé dans l’IoT, permet la diffusion d’information, on parle de communication en mode éditeur/abonné. (En anglais : publish/subscribe ou encore Pub/Sub). Nous pouvons utiliser l’implémentation du groupe Apache nommée MosQuiTTo. Apache met à notre disposition un serveur à l’adresse suivante : `test.mosquitto.org:1883`. Sur notre schéma le M5StickC c’est abonné au message. Le M5Stack envoie un message qui est diffusé par le serveur MQTT aux abonnés, en l’occurrence notre M5StickC. Il s’agit d’un schéma simplifié. Comme vous ne disposez peut-être pas de plusieurs M5Stack, l’émetteur du message est aussi un abonné. Il recevra donc son propre message.
 
 ![](images/mqtt_communication.png)
 
 Voici le code pour notre M5Stack :
-
-```
-Setup
-
-Set screen brightness 20
-
-set 		client id "Programmez₂"
-
-server		"mqtt.eclipse.org"
-port		1883
-user		""
-password	""
-keepalive	300
-mqtt start
-Speaker.volume 0.1
-
-mqtt subscribe "/topic/M5Stack" with topic_data
-
-  Label 	message 	show 	get topic_data
-  Label 	batterie 	show 	get Battery Level
-  play tone 	Hight A 	for 	1/2 beat
-  Http Request
-  Method 	GET
-  URL 		"http://worldtimeapi.org/api/timezone/cet"
-  Headers 	create map
-  Data 		create map
-  Success 	Label 		time 	show 	get key "datetime" in map loads json Get Data
-  Fail 		Label 		time 	show 	"Erreur"
-
-Button		A	wasPressed
-  publish topic	"/topic/M5Stack"	msg	"M5Stack Button A"
-
-Button		B	wasPressed
-  publish topic	"/topic/M5Stack"	msg	"M5Stack Button B"
-
-Button		C	wasPressed
-  publish topic	"/topic/M5Stack"	msg	"M5Stack Button C"
+![](images/UIFlow_mqtt_M5Stack.png)
 
 Voici le code pour notre M5StickC :
-
-Setup
-Set screen brightness 20
-
-set 		client id "Programmez_1"
-
-server		"mqtt.eclipse.org"
-port		1883
-user		""
-password	""
-keepalive	300
-
-
-
-mqtt subscribe "/topic/M5Stack" with topic_data
-  Label 	message 	show 	get topic_data
-
-Button		A	wasPressed
-  publish topic	"/topic/M5Stack"	msg	"M5Stick Button A"
-
-Button		B	wasPressed
-  publish topic	"/topic/M5Stack"	msg	"M5Stick Button B"
-```
+![](images/UIFlow_mqtt_M5StickC.png)
 
 ## 3.4 Installer un serveur Mosquitto
 
 Dans les Flows précédents nous avons utilisé le serveur MQTT proposé par apache (MosQiTTo). Nous pouvons nous aussi installer notre propre serveur MosQiTTo sur un serveur  Rapsberry Pi en tapant la commande :
 sudo apt-get install mosquitto
 
-Ensuite il nous suffira de remplacer dans notre code : mqtt.eclipse.org par l’adresse IP de notre Rasperry Pi. Attention UIFlow ne reconnaît pas le protocole de découverte Bonjour.  Donc impossible de prendre pour adresse : raspberry.local
+Ensuite il nous suffira de remplacer dans notre code : `test.mosquitto.org` par l’adresse IP de notre Rasperry Pi. Attention UIFlow ne reconnaît pas le protocole de découverte Bonjour.  Donc impossible de prendre pour adresse : raspberry.local
 
 ## 3.5 Programmation « Météo avec Hat YUN »
 
