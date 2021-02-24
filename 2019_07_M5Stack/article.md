@@ -110,10 +110,10 @@ Je vous propose 2 programmes appelés Flows. Un pour le M5Stack et un pour le M5
 ![](images/mqtt_communication.png)
 
 Voici le code pour notre M5Stack :
-![](images/UIFlow_mqtt_M5Stack.png)
+[![](images/UIFlow_mqtt_M5Stack.png)](https://github.com/colas-sebastien/articles-programmez/blob/main/2019_07_M5Stack/UIFlow/M5Stack_mqtt_eclipse.m5f)
 
 Voici le code pour notre M5StickC :
-![](images/UIFlow_mqtt_M5StickC.png)
+[![](images/UIFlow_mqtt_M5StickC.png)](https://github.com/colas-sebastien/articles-programmez/blob/main/2019_07_M5Stack/UIFlow/M5StickC_mqtt_eclipse.m5f)
 
 ## 3.4 Installer un serveur Mosquitto
 
