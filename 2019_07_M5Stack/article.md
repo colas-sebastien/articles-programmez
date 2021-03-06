@@ -192,7 +192,7 @@ def toblack():
 toblack()
 while True:
   try:
-    req = urequests.request(method='GET', url='http://api.openweathermap.org/data/2.5/forecast?id=6453910&APPID=a17720d35446f15eb56c40418af01090&units=metric')
+    req = urequests.request(method='GET', url='http://api.openweathermap.org/data/2.5/forecast?id=6453910&APPID=XXXXXXXXXXXXXXXXXXXXX&units=metric')
     data = req.text
     list2 = data.split(',')
     icon = list2[37]
@@ -210,11 +210,9 @@ while True:
 [Télécharger le code](https://github.com/colas-sebastien/articles-programmez/blob/main/2019_07_M5Stack/UIFlow/M5StickC_yun_hat.m5f)
 
 
+La liste des valeurs possibles pour les conditions météorologique se trouve ici : https://openweathermap.org/weather-conditions.
 
-Le code a été tronqué pour ne montrer que les conditions météos 01d et 01n (respectivement beau temps de jour, beau temps de nuit), il faudra bien sûr que nous codions tous les cas. La liste des valueurs possibles se trouve ici : https://openweathermap.org/weather-conditions.
-
-OpenWeatherMap nous retourne des information JSON, malheureusement faute de documentation le block de lecure JSON est unitilisable pour le moment. Nous avons donc dû biaisé en créant une liste avec comme délimiteur la virgule pour récupérer le code de condition météo.
-
+OpenWeatherMap nous retourne des information JSON, malheureusement faute de documentation le block de lecure JSON est unitilisable pour le moment. Nous avons donc dû biaiser en créant une liste avec comme délimiteur la virgule pour récupérer le code de condition météo.
 
 
 # 4. Programmation avec Arduino IDE
