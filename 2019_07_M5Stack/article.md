@@ -118,9 +118,9 @@ Voici le code pour notre M5StickC :
 ## 3.4 Installer un serveur Mosquitto
 
 Dans les Flows précédents nous avons utilisé le serveur MQTT proposé par apache (MosQiTTo). Nous pouvons nous aussi installer notre propre serveur MosQiTTo sur un serveur  Rapsberry Pi en tapant la commande :
-sudo apt-get install mosquitto
+`sudo apt-get install mosquitto`
 
-Ensuite il nous suffira de remplacer dans notre code : `test.mosquitto.org` par l’adresse IP de notre Rasperry Pi. Attention UIFlow ne reconnaît pas le protocole de découverte Bonjour.  Donc impossible de prendre pour adresse : raspberry.local
+Ensuite il nous suffira de remplacer dans notre code : `test.mosquitto.org` par l’adresse IP de notre Rasperry Pi. Attention UIFlow ne reconnaît pas le protocole de découverte Bonjour.  Donc impossible de prendre pour adresse : `raspberry.local`
 
 ## 3.5 Programmation « Météo avec Hat YUN »
 
@@ -149,41 +149,67 @@ Nous pouvons placer notre image : image0 et nos labels : t,h,b,p (resp : temp
 Il ne nous reste plus qu’a écrire notre programme :
 
 ```
-Setup
-wifi connect (log in lcd true)
-Set Screen backgroundColor « black »
-repeat while true
-do
-  Http Request
-  Method GET
-  URL http://api.openweathermap.org/data/2.5/forecast?id=XXX&APPID=YYY&units=metric
+from m5stack import *
+from m5ui import *
+from uiflow import *
+import wifiCfg
+import time
+import urequests
+import hat
 
-  Headers
-  Data
-  Success 
-    set data to Get Data
-    set list to make list from text data with delimiter « , »
-    set icon in list get #36
-    set list to make list from text icon with delimiter « " »
-    set icon in list list get #4
-    if icon = « 01d »
-    do
-      set image0 image 01d.jpg
-      set hat all RGB color « yellow »
-    if icon = « 01n »
-    do
-      set image0 image 01n.jpg
-      set hat all RGB color « black »
-…
-  Fail
-  repeat 300 times
-  do
-    Label p show « P » + Get hat yun Pressure
-    Label h show « H » + Get hat yun humidity
-    Label t show « P » + Get hat yun temperature
-    Label b show « P » + Get hat yun Brightness
-    Wait 1s
+setScreenColor(0x111111)
+
+hat_yun0 = hat.get(hat.YUN)
+
+i = None
+data = None
+icon = None
+list2 = None
+
+wifiCfg.autoConnect(lcdShow=True)
+t = M5TextBox(75, 4, "t", lcd.FONT_Default, 0xFFFFFF, rotate=90)
+h = M5TextBox(55, 4, "h", lcd.FONT_Default, 0xFFFFFF, rotate=90)
+b = M5TextBox(36, 4, "b", lcd.FONT_Default, 0xFFFFFF, rotate=90)
+image0 = M5Img(0, 79, "res/default.jpg", True)
+p = M5TextBox(16, 4, "p", lcd.FONT_Default, 0xFFFFFF, rotate=90)
+
+
+# Describe this function...
+def update_display():
+  global i, data, icon, list2
+  p.setText(str((str('P ') + str((hat_yun0.pressure)))))
+  h.setText(str((str('H ') + str((hat_yun0.humidity)))))
+  t.setText(str((str('T ') + str((hat_yun0.temperature)))))
+  b.setText(str((str('B ') + str((hat_yun0.getLight())))))
+
+# Describe this function...
+def toblack():
+  global i, data, icon, list2
+  for i in range(14):
+    hat_yun0.SetRGB(i, 0x000000)
+    wait_ms(500)
+
+toblack()
+while True:
+  try:
+    req = urequests.request(method='GET', url='http://api.openweathermap.org/data/2.5/forecast?id=6453910&APPID=a17720d35446f15eb56c40418af01090&units=metric')
+    data = req.text
+    list2 = data.split(',')
+    icon = list2[37]
+    list2 = icon.split('"')
+    icon = list2[3]
+    image0.changeImg("res/"+icon+"_3.jpg")
+  except:
+    image0.changeImg("res/error.jpg")
+    toblack()
+  for count in range(300):
+    update_display()
+    wait(1)
 ```
+
+[Télécharger le code]()
+
+
 
 Le code a été tronqué pour ne montrer que les conditions météos 01d et 01n (respectivement beau temps de jour, beau temps de nuit), il faudra bien sûr que nous codions tous les cas. La liste des valueurs possibles se trouve ici : https://openweathermap.org/weather-conditions.
 
