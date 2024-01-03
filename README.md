@@ -4,3 +4,4 @@ Mes articles [Programmez !](https://www.programmez.com/) sont désormais disponi
 
 - [Découverte du M5Stack](https://github.com/colas-sebastien/articles-programmez/blob/main/2019_07_M5Stack/article.md)
 - [DIY : un robot pour résoudre votre Rubik’s Cube](https://github.com/colas-sebastien/articles-programmez/blob/main/2021_07_rubik/article.md)
+- [Superviser votre Linux à l’aide d’un écran LCD](https://github.com/colas-sebastien/articles-programmez/blob/main/2021_11_lcd4linux/article.md)
